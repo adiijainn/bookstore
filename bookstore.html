@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Store</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Segoe UI", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f4f4f9;
+        color: #333;
+      }
+      header {
+        background: #4b7bec;
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+      main {
+        padding: 20px;
+      }
+      .form-container,
+      .cart-container,
+      .book-list {
+        margin-bottom: 30px;
+      }
+      .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .form-container input,
+      .form-container button {
+        padding: 10px;
+        margin-right: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      .form-container button {
+        background: #4b7bec;
+        color: white;
+        cursor: pointer;
+      }
+      .book {
+        background: white;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 10px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .book-title {
+        font-weight: bold;
+      }
+      .book button {
+        background: #20bf6b;
+        border: none;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .cart-container span {
+        font-weight: bold;
+        color: #eb3b5a;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>📚 Welcome to My Book Store</h1>
+    </header>
+    <main>
+      <div class="form-container">
+        <input type="text" id="bookTitle" placeholder="Enter book title" />
+        <button onclick="addBook()">Add Book</button>
+      </div>
+
+      <div class="cart-container">
+        🛒 Cart: <span id="cartCount">0</span> item(s)
+      </div>
+
+      <div class="book-list" id="bookList">
+        <!-- Books will appear here -->
+      </div>
+    </main>
+
+    <script>
+      let cartCount = 0;
+
+      function updateCart() {
+        document.getElementById("cartCount").innerText = cartCount;
+      }
+
+      function addToCart(title) {
+        cartCount++;
+        updateCart();
+        alert(`"${title}" added to cart!`);
+      }
+
+      function addBook() {
+        const title = document.getElementById("bookTitle").value.trim();
+        if (!title) {
+          alert("Please enter a book title.");
+          return;
+        }
+
+        const bookList = document.getElementById("bookList");
+
+        const bookDiv = document.createElement("div");
+        bookDiv.className = "book";
+        bookDiv.innerHTML = `
+        <div class="book-title">${title}</div>
+        <button onclick="addToCart('${title.replace(
+          /'/g,
+          "\\'"
+        )}')">Add to Cart</button>
+      `;
+
+        bookList.appendChild(bookDiv);
+        document.getElementById("bookTitle").value = "";
+      }
+    </script>
+  </body>
+</html>
